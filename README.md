@@ -29,16 +29,16 @@ OptimusAI is a full-stack operations intelligence platform that enables teams to
 
 
 <div align="center">
- <img width="1355" height="630" alt="Screenshot 2026-06-09 212222" src="https://github.com/user-attachments/assets/01934625-58e5-4b64-8282-9dba9928cc93" />
+ <img width="1000" height="500" alt="Screenshot 2026-06-09 212222" src="https://github.com/user-attachments/assets/01934625-58e5-4b64-8282-9dba9928cc93" />
 
   <br/><br/>
-  <img width="1366" height="632" alt="Screenshot 2026-06-09 212258" src="https://github.com/user-attachments/assets/7699706a-2df2-497f-ab84-9f3dd113c2d8" />
+  <img width="1000" height="500" alt="Screenshot 2026-06-09 212258" src="https://github.com/user-attachments/assets/7699706a-2df2-497f-ab84-9f3dd113c2d8" />
 
   <br/><br/>
-  <img width="1348" height="630" alt="Screenshot 2026-06-09 212317" src="https://github.com/user-attachments/assets/468cb718-c8ba-4e45-bf57-a48cced3557b" />
+  <img width="1000" height="500" alt="Screenshot 2026-06-09 212317" src="https://github.com/user-attachments/assets/468cb718-c8ba-4e45-bf57-a48cced3557b" />
 
   <br/><br/>
-  <img width="1366" height="632" alt="Screenshot 2026-06-09 212351" src="https://github.com/user-attachments/assets/4a629b51-191b-4865-ab00-5808d84d21d4" />
+  <img width="1000" height="500" alt="Screenshot 2026-06-09 212351" src="https://github.com/user-attachments/assets/4a629b51-191b-4865-ab00-5808d84d21d4" />
 
 </div>
 
