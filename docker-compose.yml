@@ -1,0 +1,83 @@
+# ─────────────────────────────────────────────────────────────
+# AI-Powered Operations Intelligence Platform — Docker Compose
+# ─────────────────────────────────────────────────────────────
+# Usage:
+#   cp .env.example .env   (then fill in your GEMINI_API_KEY)
+#   docker compose up --build
+# ─────────────────────────────────────────────────────────────
+
+services:
+  # ─── PostgreSQL Database ──────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: opsintel-db
+    environment:
+      POSTGRES_DB: ops_intel
+      POSTGRES_USER: ops_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ops_secret_2024}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ops_user -d ops_intel"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ─── FastAPI Backend ──────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: opsintel-backend
+    environment:
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-2.5-flash}
+      GEMINI_EMBEDDING_MODEL: ${GEMINI_EMBEDDING_MODEL:-text-embedding-004}
+      DATABASE_URL: postgresql://ops_user:${POSTGRES_PASSWORD:-ops_secret_2024}@postgres:5432/ops_intel
+      CHROMA_PERSIST_DIR: /app/chroma_db
+      UPLOAD_DIR: /app/uploads
+      MAX_UPLOAD_SIZE_MB: 50
+      CORS_ORIGINS: '["http://localhost:3000","http://frontend:3000"]'
+      LOG_LEVEL: INFO
+    volumes:
+      - backend_uploads:/app/uploads
+      - backend_chroma:/app/chroma_db
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:8000/api/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # ─── Next.js Frontend ────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:8000/api
+    container_name: opsintel-frontend
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000/api
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+  backend_uploads:
+    driver: local
+  backend_chroma:
+    driver: local

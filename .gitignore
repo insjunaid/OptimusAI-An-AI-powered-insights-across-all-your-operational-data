@@ -1,0 +1,24 @@
+# Environments
+.env
+
+# Backend (Python)
+backend/venv/
+backend/__pycache__/
+backend/*.pyc
+backend/.pytest_cache/
+backend/optimus.db
+backend/chroma_db/
+backend/uploads/
+
+# Frontend (Node.js)
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# OS generated files
+.DS_Store
+Thumbs.db

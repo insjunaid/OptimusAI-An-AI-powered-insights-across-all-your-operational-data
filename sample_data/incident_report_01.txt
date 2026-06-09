@@ -1,0 +1,23 @@
+INCIDENT REPORT: IR-2026-0042
+Date: 2026-06-08
+Time: 14:30 UTC
+Severity: SEV-1
+
+Description:
+A major outage occurred in the primary database cluster located in the US-East region. The master node experienced a sudden memory spike, leading to an OOM (Out of Memory) crash. Automated failover to the replica node failed due to a replication lag that exceeded the configured safety threshold.
+
+Impact:
+All read/write operations to the customer dashboard were halted for approximately 45 minutes. Users experienced 503 Service Unavailable errors.
+
+Root Cause:
+A rogue analytics query was executed directly on the primary database instead of the read-replica. This query performed a full table scan on the 'billing_events' table, consuming all available RAM.
+
+Resolution:
+1. The rogue query was identified and killed.
+2. The master node was manually rebooted.
+3. Traffic was temporarily routed to a secondary read-replica while the master node recovered.
+4. The database configuration was updated to strict query timeouts to prevent similar issues.
+
+Action Items:
+- Restrict direct ad-hoc queries on the primary database (Assigned to: DBA Team).
+- Improve failover logic to better handle replication lag scenarios (Assigned to: SRE Team).

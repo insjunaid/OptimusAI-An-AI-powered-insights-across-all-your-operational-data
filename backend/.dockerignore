@@ -1,0 +1,14 @@
+__pycache__
+*.pyc
+*.pyo
+venv
+.venv
+uploads/
+chroma_db/
+ops_intel.db
+.env
+Dockerfile
+.dockerignore
+.git
+.gitignore
+*.md

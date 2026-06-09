@@ -1,0 +1,8 @@
+[2026-06-09 10:15:22] [ERROR] Service UserAuth failed to connect to database at db-primary.internal:5432
+[2026-06-09 10:15:25] [INFO] Retrying connection to UserAuth database (Attempt 1)
+[2026-06-09 10:15:30] [ERROR] Connection retry failed. Database timeout.
+[2026-06-09 10:16:01] [CRITICAL] Authentication service is down. User login failing across all regions.
+[2026-06-09 10:18:45] [INFO] Failover to db-replica.internal:5432 initiated by admin.
+[2026-06-09 10:19:10] [INFO] Database failover successful. UserAuth service restarting.
+[2026-06-09 10:19:30] [INFO] User login requests returning HTTP 200 OK.
+[2026-06-09 10:25:00] [SUMMARY] Incident resolved. Total downtime: 9 minutes. Root cause: Hardware failure on db-primary node.
